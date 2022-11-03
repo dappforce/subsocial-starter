@@ -14,10 +14,10 @@ export const logTransaction = (result: any) => {
     const blockHash = status.isFinalized
       ? status.asFinalized
       : status.asInBlock;
-    console.log('✅ Tx finalized. Block hash', blockHash.toString());
+    console.log('Tx finalized. Block hash', blockHash.toString());
     const newIds = getNewIdsFromEvent(result); // get first argument from array.
     if (newIds.length > 0) {
-      console.log(`⚡️ New Item Id: ${newIds[0]}`)
+      console.log(`New Item Id: ${newIds[0]}`)
     }
     return;
   } else if (result.isError) {
@@ -33,15 +33,13 @@ export const logTransaction = (result: any) => {
 // that listens to events of the transaction processing. See example: [logTransaction].
 export const signAndSendTx = async (tx: any, accountId: string, callback?: (result: any) => void) => {
   const { isWeb3Injected, web3Enable, web3AccountsSubscribe, web3FromAddress } = await import('@polkadot/extension-dapp')
-  const injectedExtensions = await web3Enable('twitter-dapp-subsocial')
+  const injectedExtensions = await web3Enable('subsocial-starter')
   if (!isWeb3Injected) {
-    console.log(`Browser do not have any polkadot.js extension`);
-    return;
+    throw Error(`Browser do not have any polkadot.js extension`);
   }
 
   if (!injectedExtensions.length) {
-    console.log(`Polkadot Extension have not authorized us to get accounts`);
-    return;
+    throw Error(`Polkadot Extension have not authorized us to get accounts`);
   }
 
   await web3AccountsSubscribe(async (accounts) => {
@@ -50,8 +48,7 @@ export const signAndSendTx = async (tx: any, accountId: string, callback?: (resu
 
       const containsAddress = addresses.includes(accountId)
       if (!containsAddress) {
-        console.log("😬 Address not found on Polkadot.js extension.")
-        return;
+        throw Error("Address not found on Polkadot.js extension.");
       }
       const { signer } = await web3FromAddress(accountId)
       await tx.signAsync(accountId, { signer })
@@ -59,4 +56,20 @@ export const signAndSendTx = async (tx: any, accountId: string, callback?: (resu
       await tx.send(callback ?? logTransaction)
     }
   })
+}
+
+// Fetch list of available accounts from the polkadotjs extension. 
+// It returns list of accounts, each account have address and other metadata property.
+export const getAllAccounts = async () => {
+  const { isWeb3Injected, web3Enable, web3Accounts } = await import('@polkadot/extension-dapp')
+  const injectedExtensions = await web3Enable('subsocial-starter')
+  if (!isWeb3Injected) {
+    throw Error(`Browser do not have any polkadot.js extension`);
+  }
+
+  if (!injectedExtensions.length) {
+    throw Error(`Polkadot Extension have not authorized us to get accounts`);
+  }
+
+  return await web3Accounts()
 }

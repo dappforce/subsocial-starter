@@ -5,7 +5,13 @@ import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
 
 import { CustomNetwork, Testnet } from "./config";
 
-import { logTransaction, signAndSendTx } from "./wallets/polkadotjs"
+import { logTransaction, signAndSendTx, getAllAccounts } from "./wallets/polkadotjs"
+import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types"
+import { waitReady } from '@polkadot/wasm-crypto'
+import { Buffer } from 'buffer';
+
+// @ts-ignore
+window.Buffer = Buffer;
 
 interface Props {
   children: React.ReactNode;
@@ -20,7 +26,8 @@ interface SubsocialContextInterface {
   setupCrustIPFS: (mneomic: string) => void,
   polkadotjs: {
     logTransaction: (response: any) => void,
-    signAndSendTx: (tx: any, accountId: string, callback?: (result: any) => void) => void
+    signAndSendTx: (tx: any, accountId: string, callback?: (result: any) => void) => void,
+    getAllAccounts: () => Promise<InjectedAccountWithMeta[]>
   }
 }
 
@@ -33,7 +40,8 @@ export const SubsocialContext = createContext({
   setupCrustIPFS: () => { },
   polkadotjs: {
     logTransaction: () => { },
-    signAndSendTx: () => { }
+    signAndSendTx: () => { },
+    getAllAccounts: () => getAllAccounts()
   }
 } as SubsocialContextInterface);
 
@@ -47,15 +55,25 @@ export const SubsocialContextProvider = ({ children }: Props) => {
   }, []);
 
   async function initialize() {
-    const api = await SubsocialApi.create({
+    await waitReady()
+    const newApi = await SubsocialApi.create({
       ...network,
       useServer: {
         httpRequestMethod: 'get'
       }
     });
 
-    setApi(api);
+    setApi(newApi);
     setisReady(true);
+
+    // For testnet using CRUST IPFS test Mnemonic. 
+    if (network === Testnet) {
+      const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')
+      // Use this ipfs object, to set authHeader for writing on Crust IPFS cluster.
+      newApi.ipfs.setWriteHeaders({
+        authorization: 'Basic ' + authHeader
+      })
+    }
   }
 
   const changeNetwork = (customNetwork: CustomNetwork) => {
@@ -63,22 +81,20 @@ export const SubsocialContextProvider = ({ children }: Props) => {
     initialize();
   }
 
-  //TODO: setup crust for testnet and 
 
-  const setupCrustIPFS = (mnemonic: string) => {
-    if (!isReady || api == null) return;
+  const setupCrustIPFS = async (mnemonic: string) => {
+    if (!isReady || api === null) throw Error('API is not ready yet.');
+
     const authHeader = generateCrustAuthToken(mnemonic)
-
     // Use this ipfs object, to set authHeader for writing on Crust IPFS cluster.
     api.ipfs.setWriteHeaders({
       authorization: 'Basic ' + authHeader
     })
-
   }
 
   return (
     <SubsocialContext.Provider
-      value={{ isReady, api, initialize, network, changeNetwork, setupCrustIPFS, polkadotjs: { logTransaction, signAndSendTx } }}
+      value={{ isReady, api, initialize, network, changeNetwork, setupCrustIPFS, polkadotjs: { logTransaction, signAndSendTx, getAllAccounts } }}
     >
       {children}
     </SubsocialContext.Provider>

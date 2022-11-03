@@ -3,9 +3,10 @@
     "dependencies": {
       "@polkadot/api": "latest",
       "@polkadot/extension-dapp": "^0.44.6",
+      "@polkadot/extension-inject": "^0.44.6",
       "@polkadot/ui-keyring": "^0.85.4",
-      "@subsocial/api": "0.7.5",
-      "@subsocial/utils": "0.7.5",
+      "@subsocial/api": "0.7.8-dev.0",
+      "@subsocial/utils": "0.7.8-dev.0",
       "@svgr/webpack": "^5.4.0",
       "@testing-library/jest-dom": "^5.16.4",
       "@testing-library/react": "^13.2.0",
