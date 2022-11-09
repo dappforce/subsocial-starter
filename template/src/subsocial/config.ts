@@ -30,3 +30,5 @@ export const Localnet: CustomNetwork = {
   substrateNodeUrl: 'http://127.0.0.1:9944',
   ipfsNodeUrl: 'http://127.0.0.1:8080'
 }
+
+export const CRUST_TEST_AUTH_KEY = 'c3ViLTVGQTluUURWZzI2N0RFZDhtMVp5cFhMQm52TjdTRnhZd1Y3bmRxU1lHaU45VFRwdToweDEwMmQ3ZmJhYWQwZGUwNzFjNDFmM2NjYzQzYmQ0NzIxNzFkZGFiYWM0MzEzZTc5YTY3ZWExOWM0OWFlNjgyZjY0YWUxMmRlY2YyNzhjNTEwZGY4YzZjZTZhYzdlZTEwNzY2N2YzYTBjZjM5OGUxN2VhMzAyMmRkNmEyYjc1OTBi' // can only be used for testnet.

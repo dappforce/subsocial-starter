@@ -73,3 +73,5 @@ export const getAllAccounts = async () => {
 
   return await web3Accounts()
 }
+
+export default { logTransaction, getAllAccounts, signAndSendTx }
