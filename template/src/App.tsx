@@ -4,7 +4,6 @@ import polkadotjs from "./subsocial/wallets/polkadotjs";
 import { IpfsContent } from '@subsocial/api/substrate/wrappers'
 import { CustomNetwork, Mainnet, Testnet } from "./subsocial/config";
 import "./App.css";
-import ReactJson from "react-json-view";
 
 // This is the start of the React app built using Subsocial Starter.
 const App = () => {
@@ -32,7 +31,7 @@ const App = () => {
       setResponse({ message: "Unable to connect to the API." })
       return;
     }
-    const space = await api!.findSpace({ id: '23' })
+    const space = await api!.findSpace({ id: '1004' })
     setResponse(space ?? { message: "Space not found." })
   }
 
@@ -91,9 +90,6 @@ const App = () => {
       <div className="button-container">
         <Button onClick={() => getSpace()} title="Fetch Space" />
         <Button onClick={() => createSpace()} title="Create Space" />
-      </div>
-      <div className="output-window">
-        <ReactJson enableClipboard={false} src={response} />
       </div>
     </div>
   </>
