@@ -31,7 +31,8 @@ const App = () => {
       setResponse({ message: "Unable to connect to the API." })
       return;
     }
-    const space = await api!.findSpace({ id: '1004' })
+    const spaceId = '1005'
+    const space = await api!.findSpace({ id: spaceId })
     setResponse(space ?? { message: "Space not found." })
   }
 
