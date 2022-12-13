@@ -13,12 +13,16 @@ const App = () => {
   // changeNetwork (changing from testnet(default) to mainnet/localnet).
   // It also gives you access to getters like [isReady] that helps you know [api] 
   // initlaization status.  
-  const { isReady, api, network } = useContext(SubsocialContext)
+  const { isReady, api, network, changeNetwork } = useContext(SubsocialContext)
   const [response, setResponse] = useState({})
 
   useEffect(() => {
     console.log(`Is API ready: ${isReady}`)
   }, [isReady, api])
+
+  useEffect(() => {
+    console.log(response)
+  }, [response])
 
   // Once [api] is initialized, all the API methods from Subsocial SDK are in
   // ready-to-use condition. For example: Fetching data about a Space. 
@@ -72,6 +76,16 @@ const App = () => {
     }
   }
 
+  const toggleNetwork = async () => {
+    if (network === Testnet) {
+      changeNetwork(Mainnet)
+    }
+    else {
+      changeNetwork(Testnet)
+    }
+  }
+
+  // Maps the network to the network name string.
   const getNetworkName = (network: CustomNetwork): string => {
     if (network === Testnet) return 'Testnet';
     if (network === Mainnet) return 'Mainnet';
@@ -86,12 +100,15 @@ const App = () => {
       <h4>
         You are {isReady ? <span className="green">connected</span> : <span className="red">connecting</span>} to Subsocial's {getNetworkName(network)}.
       </h4>
+      {Object.keys(response).length > 0 ? <p className="msg">Response logged in console. Open browser console window.</p> : <></>}
     </div>
     <div className="main">
       <div className="button-container">
         <Button onClick={() => getSpace()} title="Fetch Space" />
         <Button onClick={() => createSpace()} title="Create Space" />
+        <Button onClick={() => toggleNetwork()} title="Toggle Network" />
       </div>
+      {!isReady ? <p className="about"><i><b>About:</b> We are connecting you to the <b>Subsocial {getNetworkName(network)}</b>, the configurations can be found inside <b>subsocial/config.ts</b> file.</i></p> : <></>}
     </div>
   </>
 };

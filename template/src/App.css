@@ -65,3 +65,12 @@ h4 {
 .green {
   color: green;
 }
+
+.msg {
+  margin-top: 1rem;
+}
+
+.about {
+  text-align: center;
+  margin-top: 1rem;
+}

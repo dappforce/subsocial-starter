@@ -3,12 +3,14 @@ import React, { createContext, useEffect, useState, useCallback } from "react";
 import { SubsocialApi } from "@subsocial/api";
 import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
 
-import { CRUST_TEST_AUTH_KEY, CustomNetwork, Testnet } from "./config";
+import { CRUST_TEST_AUTH_KEY, CustomNetwork, Localnet, Mainnet, Testnet } from "./config";
 import { waitReady } from '@polkadot/wasm-crypto'
 import { Buffer } from 'buffer';
 
 // @ts-ignore
 window.Buffer = Buffer;
+
+const SUBSOCIAL_NETWORK_NAME_KEY = 'SUBSOCIAL_NETWORK_NAME_KEY'
 
 interface Props {
   children: React.ReactNode;
@@ -24,11 +26,44 @@ interface SubsocialContextInterface {
   setupCrustIPFS: (mneomic: string) => void
 }
 
+const setStoredNetwork = (network: CustomNetwork) => {
+  let networkName: string
+  switch (network) {
+    case Testnet:
+      networkName = 'testnet';
+      break;
+    case Mainnet:
+      networkName = 'mainnet';
+      break;
+    case Localnet:
+      networkName = 'localnet';
+      break;
+    default:
+      networkName = 'testnet';
+      break;
+  }
+  localStorage.setItem(SUBSOCIAL_NETWORK_NAME_KEY, networkName)
+}
+
+const getStoredNetwork = () => {
+  const networkName = localStorage.getItem(SUBSOCIAL_NETWORK_NAME_KEY)
+  switch (networkName) {
+    case 'testnet':
+      return Testnet;
+    case 'mainnet':
+      return Mainnet;
+    case 'localnet':
+      return Localnet;
+    default:
+      return Testnet;
+  }
+}
+
 export const SubsocialContext = createContext({
   api: null,
   isReady: false,
   initialize: () => { },
-  network: Testnet,
+  network: getStoredNetwork(),
   changeNetwork: () => { },
   setupCrustIPFS: () => { }
 } as SubsocialContextInterface);
@@ -36,7 +71,7 @@ export const SubsocialContext = createContext({
 export const SubsocialContextProvider = ({ children, defaultNetwork }: Props) => {
   const [isReady, setisReady] = useState(false);
   const [api, setApi] = useState<SubsocialApi | null>(null);
-  const [network, setNetwork] = useState<CustomNetwork>(defaultNetwork ?? Testnet);
+  const [network, setNetwork] = useState<CustomNetwork>(defaultNetwork ?? getStoredNetwork());
 
   const initialize = useCallback(async () => {
     await waitReady()
@@ -44,7 +79,7 @@ export const SubsocialContextProvider = ({ children, defaultNetwork }: Props) =>
       ...network,
       useServer: {
         httpRequestMethod: 'get'
-      }
+      },
     });
 
     setApi(newApi);
@@ -65,7 +100,10 @@ export const SubsocialContextProvider = ({ children, defaultNetwork }: Props) =>
 
   const changeNetwork = (customNetwork: CustomNetwork) => {
     setNetwork(customNetwork);
-    initialize();
+    setStoredNetwork(customNetwork);
+    if (window != null) {
+      window.location.reload()
+    }
   }
 
 

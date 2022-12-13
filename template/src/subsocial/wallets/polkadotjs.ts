@@ -19,7 +19,6 @@ export const logTransaction = (result: any) => {
     if (newIds.length > 0) {
       console.log(`New Item Id: ${newIds[0]}`)
     }
-    return;
   } else if (result.isError) {
     console.log(JSON.stringify(result));
   } else {
