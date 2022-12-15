@@ -1,7 +1,7 @@
 {
-  "name": "subsocial-starter",
-  "version": "1.0.0",
+  "name": "@subsocial/starter",
+  "version": "0.0.1",
   "main": "index.js",
-  "author": "Tushar Ojha",
-  "license": "MIT"
+  "author": "DappForce contributors",
+  "license": "Apache-2.0"
 }
