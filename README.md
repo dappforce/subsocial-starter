@@ -16,7 +16,7 @@ Getting started is easy, just follow the steps:
 - Go to the project repository. (Not needed after starter deployment).
 - Run the command: 
 ```tsx
-  npx create-react-app my-app --template file:.
+  npx create-react-app my-app --template @subsocial/starter
 ```
 
 ### Running the project
