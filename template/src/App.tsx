@@ -4,6 +4,8 @@ import polkadotjs from "./subsocial/wallets/polkadotjs";
 import { IpfsContent } from '@subsocial/api/substrate/wrappers'
 import { SpaceData } from "@subsocial/api/types";
 import { CustomNetwork, Mainnet, Testnet } from "./subsocial/config";
+import SpaceTile from "./components/SpaceTile";
+import Button from "./components/Button";
 import "./App.css";
 
 // This is the start of the React app built using Subsocial Starter.
@@ -110,49 +112,5 @@ const App = () => {
     </div>
   </>
 };
-
-type ButtonPropsType = {
-  onClick: () => Promise<void>,
-  title: string,
-  inactiveTitle: string
-}
-
-const Button = ({ onClick, title, inactiveTitle }: ButtonPropsType) => {
-  const [loading, setLoading] = useState(false)
-  return <div onClick={async () => {
-    if (loading) return;
-
-    setLoading(true)
-    await onClick()
-    setLoading(false)
-  }} className="button">
-    {loading ? inactiveTitle : title}
-  </div>
-}
-
-const SpaceTile = ({ space }: { space: SpaceData | undefined }) => {
-  const { network } = useContext(SubsocialContext);
-
-  if (!space || !space.content) return <></>
-
-  const Tag = ({ title }: { title: string }) => {
-    return <div className="tag">
-      {title}
-    </div>
-  }
-
-  return <div className="spaceTileContainer">
-    <div className="spaceTile">
-      <div className="logo">
-        {space.content.image ? <img src={network.ipfsNodeUrl + '/ipfs/' + space.content?.image} /> : <></>}
-      </div>
-      <div className="content">
-        <h1>{space.content?.name}</h1>
-        <p>{space.content?.summary}</p>
-        <div className="tags">{space.content?.tags.map((i) => <Tag key={i} title={i.toString()} />)}</div>
-      </div>
-    </div>
-  </div>
-}
 
 export default App;
