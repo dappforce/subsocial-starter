@@ -17,7 +17,8 @@ Getting started is easy, just follow the steps:
 - Run the command: `npx create-react-app my-app --template file:.`
 
 ### Running the project
-- Change directory to `my-app` and run command `yarn`.
+- Change directory to `my-app` 
+- Run command `yarn` to install all packages
 - Run command `yarn start` or `npm start` to start the local project
 - Congratulations, now your first Subsocial App is up and running.
 

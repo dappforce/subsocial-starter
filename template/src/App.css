@@ -4,6 +4,10 @@
   font-family: sans-serif;
 }
 
+body {
+  background-color: #f8fafc;
+}
+
 .header {
   height: 160px;
   display: flex;
@@ -73,4 +77,50 @@ h4 {
 .about {
   text-align: center;
   margin-top: 1rem;
+}
+
+.spaceTileContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.spaceTile {
+  background-color: #fff;
+  padding: 1.25rem;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #e2e8f0 !important;
+  width: 50%;
+  padding: 1rem;
+  display: flex;
+}
+
+.logo img {
+  height: 64px;
+  width: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: 50%;
+}
+
+.content {
+  flex: 1;
+  margin-top: 0.1rem;
+  margin-left: 0.5rem;
+}
+
+.tag {
+  padding: 0.8rem;
+  background-color: #f8fafc;
+  border-radius: 2rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.tags {
+  margin-top: 1rem;
+  display: flex;
 }

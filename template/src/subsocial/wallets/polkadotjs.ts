@@ -1,6 +1,5 @@
 import { getNewIdsFromEvent } from "@subsocial/api";
 
-
 // logTransaction is a callback method when a transaction is sent to 
 // the blockchain. It listens and logs the events like ready, broadcast, finalized, etc.
 // It also logs if a new id is generated during an event.
@@ -31,30 +30,20 @@ export const logTransaction = (result: any) => {
 // Arguments: [tx] is the transaction object, accountId is the wallet adddress, callback is a method 
 // that listens to events of the transaction processing. See example: [logTransaction].
 export const signAndSendTx = async (tx: any, accountId: string, callback?: (result: any) => void) => {
-  const { isWeb3Injected, web3Enable, web3AccountsSubscribe, web3FromAddress } = await import('@polkadot/extension-dapp')
-  const injectedExtensions = await web3Enable('subsocial-starter')
-  if (!isWeb3Injected) {
-    throw Error(`Browser do not have any polkadot.js extension`);
+  const { web3FromAddress } = await import('@polkadot/extension-dapp')
+  const accounts = await getAllAccounts()
+
+  const addresses = accounts.map((account) => account.address)
+
+  const containsAddress = addresses.includes(accountId)
+  if (!containsAddress) {
+    throw Error("Address not found on Polkadot.js extension.");
   }
 
-  if (!injectedExtensions.length) {
-    throw Error(`Polkadot Extension have not authorized us to get accounts`);
-  }
+  const { signer } = await web3FromAddress(accountId)
+  await tx.signAsync(accountId, { signer })
 
-  await web3AccountsSubscribe(async (accounts) => {
-    if (accounts.length > 0) {
-      const addresses = accounts.map((account) => account.address)
-
-      const containsAddress = addresses.includes(accountId)
-      if (!containsAddress) {
-        throw Error("Address not found on Polkadot.js extension.");
-      }
-      const { signer } = await web3FromAddress(accountId)
-      await tx.signAsync(accountId, { signer })
-
-      await tx.send(callback ?? logTransaction)
-    }
-  })
+  await tx.send(callback ?? logTransaction)
 }
 
 // Fetch list of available accounts from the polkadotjs extension. 
