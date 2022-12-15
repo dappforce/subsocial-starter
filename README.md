@@ -1,31 +1,33 @@
 ## Subsocial Starter
 
-The starter of your social web3 journey. 
+The start of your Web3 social journey. 
 
-The starter is the foundational layer for using [Subsocial JS SDK](https://github.com/dappforce/subsocial-js) in a React app.  
+The starter is the foundational layer for using the [Subsocial JS SDK](https://github.com/dappforce/subsocial-js) in a React app.  
 
-It provides you with all set of methods, APIs, connections, etc. that you might need while writing your favourite social finance web app for your users. 
+It provides you with all set of methods, APIs, connections, etc. that you might need while building viral social web apps for your users. 
 
 Getting started is easy, just follow the steps:
 
-> **Note**: Since the project is not deployed yet, so the steps will be a bit different but easy in future. 
+> **Note**: Since the project is not yet deployed, the steps may be a bit different in the future. 
 
 ### Creating a new starter project
 
-- Clone this repository in your machine. (Not needed after starter deployment).
-- Go to the project repository. (Not needed after starter deployment).
+- Clone this repository on your machine (Not needed once the starter is deployed)
+- Go to the project repository (Not needed once the starter is deployed)
 - Run the command: 
 ```tsx
   npx create-react-app my-app --template @subsocial/starter
 ```
 
 ### Running the project
-- Change directory to `my-app` 
-- Run command `yarn` to install all packages
-- Run command `yarn start` to start the local project
-- Congratulations, now your first Subsocial App is up and running.
+- Change the directory to `my-app` 
+- Run the command `yarn` to install all of the packages
+- Run the command `yarn start` to start the local project
 
-Open the `my-app` directory, in a text-editor like VS Code or IDE and start building your favourite decenteralized social network. Read the comments inside the project for help.
+Congratulations, now your first Subsocial App is up and running
+
+Open the `my-app` directory in a code-editor like VS Code or IDE and start building your favourite decenteralized social network. 
+Read the comments inside of the project for help.
 
 Other helpful resources:
 
