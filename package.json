@@ -1,5 +1,5 @@
 {
-  "name": "@subsocial/starter",
+  "name": "cra-template-subsocial-starter",
   "version": "0.0.1",
   "main": "index.js",
   "author": "DappForce contributors",
