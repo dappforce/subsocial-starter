@@ -8,21 +8,17 @@ It provides you with all set of methods, APIs, connections, etc. that you might 
 
 Getting started is easy, just follow the steps:
 
-> **Note**: Since the project is not deployed yet, so the steps will be a bit different but easy in future. 
+### Creating a new project using starter
 
-### Creating a new starter project
-
-- Clone this repository in your machine. (Not needed after starter deployment).
-- Go to the project repository. (Not needed after starter deployment).
 - Run the command: 
 ```tsx
-  npx create-react-app my-app --template @subsocial/starter
+  npx create-react-app my-app --template subsocial-starter
 ```
 
 ### Running the project
 - Change directory to `my-app` 
 - Run command `yarn` to install all packages
-- Run command `yarn start` to start the local project
+- Run command `yarn start` to run the local project
 - Congratulations, now your first Subsocial App is up and running.
 
 Open the `my-app` directory, in a text-editor like VS Code or IDE and start building your favourite decenteralized social network. Read the comments inside the project for help.
