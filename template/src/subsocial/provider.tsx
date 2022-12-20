@@ -75,12 +75,7 @@ export const SubsocialContextProvider = ({ children, defaultNetwork }: Props) =>
 
   const initialize = useCallback(async () => {
     await waitReady()
-    const newApi = await SubsocialApi.create({
-      ...network,
-      useServer: {
-        httpRequestMethod: 'get'
-      },
-    });
+    const newApi = await SubsocialApi.create(network);
 
     setApi(newApi);
     setisReady(true);
