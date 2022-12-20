@@ -1,17 +1,29 @@
-import { useState } from 'react'
-import "../App.css";
+import { HTMLProps, useState } from 'react'
+import '../App.css'
 
-type ButtonPropsType = {
-  onClick: () => Promise<void>,
-  title: string,
-  inactiveTitle: string
+type ButtonPropsType = Omit<
+  HTMLProps<HTMLButtonElement>,
+  'onClick' | 'title'
+> & {
+  onClick: () => Promise<void>
+  title: string
+  loadingText: string
+  type?: 'submit' | 'button' | 'reset'
+  isActive?: boolean
 }
 
-const Button = ({ onClick, title, inactiveTitle }: ButtonPropsType) => {
+export default function Button({
+  className,
+  onClick,
+  title,
+  loadingText,
+  isActive,
+  ...props
+}: ButtonPropsType) {
   const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
-    if (loading) return;
+    if (loading) return
 
     setLoading(true)
     try {
@@ -23,9 +35,12 @@ const Button = ({ onClick, title, inactiveTitle }: ButtonPropsType) => {
     }
   }
 
-  return <div onClick={handleClick} className="button">
-    {loading ? inactiveTitle : title}
-  </div>
+  return (
+    <button
+      {...props}
+      onClick={handleClick}
+      className={`button ${isActive ? 'active' : ''} ${className}`}>
+      {loading ? loadingText : title}
+    </button>
+  )
 }
-
-export default Button;
