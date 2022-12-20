@@ -1,22 +1,26 @@
 import { SpaceData } from '@subsocial/api/types'
-import { HTMLProps } from 'react'
+import { HTMLProps, useContext } from 'react'
 import Chip from './Chip'
+import { SubsocialContext } from '../subsocial/provider'
 
 type SpaceProps = HTMLProps<HTMLDivElement> & {
   spaceData: SpaceData
 }
 
 export default function Space({ spaceData, className, ...props }: SpaceProps) {
+  const { network } = useContext(SubsocialContext)
+  const ipfsUrl = network.ipfsNodeUrl
+
   const image = spaceData.content?.image
+  const imageUrl = `${ipfsUrl}/ipfs/${image}`
+
   const name = spaceData.content?.name
   const summary = spaceData.content?.summary
   const tags = spaceData.content?.tags
 
   return (
     <div className={`space ${className}`} {...props}>
-      {image && (
-        <img src={`https://gw.crustfiles.app/cid/${image}`} alt='space logo' />
-      )}
+      {image && <img src={imageUrl} alt='space logo' />}
       <div className='space-content'>
         {name && <p className='name'>{name}</p>}
         {summary && <p className='summary'>{summary}</p>}
