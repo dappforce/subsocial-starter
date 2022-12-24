@@ -1,4 +1,4 @@
-## Subsocial Starter
+# Subsocial Starter by [DappForce](https://github.com/dappforce)
 
 The start of your Web3 social journey. 
 
@@ -8,13 +8,15 @@ It provides you with all set of methods, APIs, connections, etc. that you might 
 
 Getting started is easy, just follow the steps:
 
-### Creating a new starter project
+## Creating a new starter project
+
 - Run the command: 
 ```tsx
   npx create-react-app my-app --template @subsocial/starter
 ```
 
-### Running the project
+## Running the project
+
 - Change the directory to `my-app` 
 - Run the command `yarn` to install all the packages
 - Run the command `yarn start` to start the local project
@@ -27,6 +29,6 @@ Read the comments inside the project for help.
 
 Other helpful resources:
 
-- Quick Reference Guide: https://docs.subsocial.network/docs/develop/quick-reference
-- Subsocial Playground:  https://play.subsocial.network
+- Developer Cheatsheet: https://docs.subsocial.network/docs/develop/quick-reference
+- Subsocial Playground: https://play.subsocial.network
 - Subsocial Docs: https://docs.subsocial.network/docs/develop
