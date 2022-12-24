@@ -137,7 +137,7 @@ export default function App() {
             target='_blank'
             rel='noreferrer'
             href='https://docs.subsocial.network/docs/develop/'>
-            docs
+            Docs
           </a>{' '}
           and try the{' '}
           <a
