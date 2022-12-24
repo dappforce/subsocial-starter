@@ -1,33 +1,28 @@
 # Subsocial Starter by [DappForce](https://github.com/dappforce)
 
-The start of your Web3 social journey. 
+The starter is the easiest way to create your next web3 social dapp with React and [Subsocial JS SDK](https://github.com/dappforce/subsocial-js).
 
-The starter is the foundational layer for using the [Subsocial JS SDK](https://github.com/dappforce/subsocial-js) in a React app.  
+It provides you with all set of helpful methods, APIs, and connections that you might need when developing your dapp.
 
-It provides you with all set of methods, APIs, connections, etc. that you might need while building viral social web apps for your users. 
+## Create a new dapp
 
-Getting started is easy, just follow the steps:
-
-## Creating a new starter project
-
-- Run the command: 
-```tsx
-  npx create-react-app my-app --template @subsocial/starter
+```sh
+npx create-react-app my-dapp --template @subsocial/starter
 ```
 
-## Running the project
+## Install deps and run the dapp
 
-- Change the directory to `my-app` 
-- Run the command `yarn` to install all the packages
-- Run the command `yarn start` to start the local project
-- Congratulations, now your first Subsocial App is up and running.
+```sh
+cd my-dapp && yarn && yarn start
+```
 
-Congratulations, now your first Subsocial App is up and running
+Congratulations 🎉, now your first Subsocial dapp is up and running at https://localhost:3000
 
-Open the `my-app` directory in a code-editor like VS Code or IDE and start building your favourite decenteralized social network. 
-Read the comments inside the project for help.
+## Make changes to the dapp
 
-Other helpful resources:
+Open the `my-dapp` directory in your code editor (for example VS Code or WebStorm) and read the comments inside the project for help. Happy coding!
+
+## Helpful resources
 
 - Developer Cheatsheet: https://docs.subsocial.network/docs/develop/quick-reference
 - Subsocial Playground: https://play.subsocial.network
