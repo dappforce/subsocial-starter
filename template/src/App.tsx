@@ -41,12 +41,12 @@ export default function App() {
       setSpace(undefined)
       return
     }
-    if (!isReady) {
+    if (!isReady || !api) {
       console.log({ message: 'Unable to connect to the API.' })
       return
     }
     const spaceId = '1005'
-    const res = await api!.findSpace({ id: spaceId })
+    const res = await api.findSpace({ id: spaceId })
     setSpace(res)
     console.log(res)
   }
@@ -56,7 +56,7 @@ export default function App() {
     setSpace(undefined)
 
     // Always assure, the [api] is not null using [isReady] property.
-    if (!isReady) {
+    if (!isReady || !api) {
       console.log({ message: 'Unable to connect to the API.' })
       return
     }
@@ -73,14 +73,14 @@ export default function App() {
     //
     // To change the IPFS either pass [CustomNetwork] or call [setupCrustIPFS] with
     // your mnemonic (MAKE SURE TO HIDE MNEOMIC BEFORE UPLOADING TO PUBLIC NETWORK).
-    const cid = await api!.ipfs.saveContent({
+    const cid = await api.ipfs.saveContent({
       about:
         'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS',
       image: null,
       name: 'Subsocial',
       tags: ['subsocial'],
     })
-    const substrateApi = await api!.blockchain.api
+    const substrateApi = await api.blockchain.api
 
     const spaceTransaction = substrateApi.tx.spaces.createSpace(
       IpfsContent(cid),
